@@ -6,6 +6,7 @@ public class TicketService {
                 false,'A',0.0, 40.0);
         Ticket limitedTicket = new Ticket("GardenHall",177,1132341321);
 
+        fullTicket.setPrice(45.24);
         emptyTicket.setPrice(0.0);
         limitedTicket.setPrice(30.0);
 
