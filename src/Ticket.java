@@ -33,6 +33,12 @@ public class Ticket {
         this.price = price;
         this.time = Instant.now().getEpochSecond();
     }
+    public String toString() {
+        return "Full Ticket: ID=" + id + ", Concert Hall=" + concertHall +
+                ", Event Code=" + eventCode + ", Purchase time=" + time +", Promo=" +
+                isPromo +" ,Stadium Sector=" + stadiumSector + ", Backpack Weight=" + backpackWeight +
+                ", Price=" + price;
+    }
     public String getId() {
         return id;
     }
