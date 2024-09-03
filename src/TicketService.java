@@ -1,4 +1,22 @@
 public class TicketService {
+
+    private Ticket[] tickets;
+    private int ticketCount;
+
+    public TicketService() {
+        tickets = new Ticket[10];
+        ticketCount = 0;
+    }
+
+    public boolean addTicket(Ticket ticket) {
+        if (ticketCount < tickets.length) {
+            tickets[ticketCount] = ticket;
+            ticketCount++;
+            return true;
+        }
+        return false;
+    }
+
     public static void main(String[] args) {
         Ticket fullTicket = new Ticket("01","ArizonaHall",118,142354315,
                 true,'C',3.421, 40.0);
