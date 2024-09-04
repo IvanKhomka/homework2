@@ -5,23 +5,7 @@ public class TicketService {
 
     public TicketService() {
         tickets = new Ticket[10];
-        ticketCount = 0;
-    }
-    public boolean addTicket(Ticket ticket) {
-        if (ticketCount < tickets.length) {
-            tickets[ticketCount] = ticket;
-            ticketCount++;
-            return true;
-        }
-        return false;
-    }
-    public Ticket getTicketById(String id) {
-        for (int i = 0; i < ticketCount; i++) {
-            if (tickets[i].getId().equals(id)) {
-                return tickets[i];
-            }
-        }
-        return null;
+        ticketCount;
     }
     public static void main(String[] args) {
         Ticket fullTicket = new Ticket("01","ArizonaHall",118,142354315,
@@ -40,5 +24,21 @@ public class TicketService {
         System.out.println(emptyTicket);
         System.out.println(limitedTicket);
 
+    }
+    private boolean addTicket(Ticket ticket) {
+        if (ticketCount < tickets.length) {
+            tickets[ticketCount] = ticket;
+            ticketCount++;
+            return true;
+        }
+        return false;
+    }
+    private Ticket getTicketById(String id) {
+        for (int i = 0; i < ticketCount; i++) {
+            if (tickets[i].getId().equals(id)) {
+                return tickets[i];
+            }
+        }
+        return null;
     }
 }
