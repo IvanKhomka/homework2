@@ -1,6 +1,8 @@
 import java.time.Instant;
+import java.util.Objects;
+
 public class Ticket {
-    private String id;
+    @NullableWarning private String id;
     private String concertHall;
     private int eventCode;
     private long time;
@@ -34,7 +36,7 @@ public class Ticket {
         this.time = Instant.now().getEpochSecond();
     }
     public String toString() {
-        return "Full Ticket: ID=" + id + ", Concert Hall=" + concertHall +
+        return "Ticket: ID=" + id + ", Concert Hall=" + concertHall +
                 ", Event Code=" + eventCode + ", Purchase time=" + time +", Promo=" +
                 isPromo +" ,Stadium Sector=" + stadiumSector + ", Backpack Weight=" + backpackWeight +
                 ", Price=" + price;
@@ -72,4 +74,24 @@ public class Ticket {
     public void setPrice(double price) {
         this.price = price;
     }
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Ticket ticket)) return false;
+        return id == ticket.id;
+    }
+    public int hashCode() {
+        return Objects.hash(id);
+    }
+    public interface Sharable {
+        void shareByPhone();
+        void shareByEmail();
+    }
+    public void shareByPhone() {
+        System.out.println("Ticket shared by phone!");
+    }
+
+    public void shareByEmail() {
+        System.out.println("Ticket shared by email!");
+    }
 }
+
