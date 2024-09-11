@@ -4,7 +4,8 @@ public class Client extends User {
         System.out.println("I am a Client.");
     }
 
-    public void getTicket(Ticket ticket) {
+    public Ticket getTicket(Ticket ticket) {
         System.out.println("Client received ticket: " + ticket);
-    }
+        return ticket;
+
 }
