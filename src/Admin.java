@@ -4,7 +4,8 @@ public class Admin extends User {
         System.out.println("I am an Admin.");
     }
 
-    public void checkTicket(Ticket ticket) {
+    public boolean checkTicket(Ticket ticket) {
         System.out.println("Admin checking ticket: " + ticket);
+        return false;
     }
 }
