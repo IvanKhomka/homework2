@@ -1,6 +1,8 @@
 import java.time.Instant;
-public class Ticket {
-    private String id;
+import java.util.Objects;
+
+    public class Ticket extends Identifiable implements Printable {
+    @NullableWarning
     private String concertHall;
     private int eventCode;
     private long time;
@@ -34,13 +36,10 @@ public class Ticket {
         this.time = Instant.now().getEpochSecond();
     }
     public String toString() {
-        return "Full Ticket: ID=" + id + ", Concert Hall=" + concertHall +
+        return "Ticket: ID=" + id + ", Concert Hall=" + concertHall +
                 ", Event Code=" + eventCode + ", Purchase time=" + time +", Promo=" +
                 isPromo +" ,Stadium Sector=" + stadiumSector + ", Backpack Weight=" + backpackWeight +
                 ", Price=" + price;
-    }
-    public String getId() {
-        return id;
     }
 
     public String getConcertHall() {
@@ -72,4 +71,24 @@ public class Ticket {
     public void setPrice(double price) {
         this.price = price;
     }
-}
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Ticket ticket)) return false;
+        return Objects.equals(id, ticket.id);
+    }
+    public int hashCode() {
+        return Objects.hash(id);
+    }
+    public void shareByPhone() {
+        System.out.println("Ticket shared by phone!");
+    }
+
+    public void shareByEmail() {
+        System.out.println("Ticket shared by email!");
+    }
+
+    public void print() {
+        System.out.println(this.toString());
+        }
+    }
+
