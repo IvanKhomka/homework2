@@ -7,5 +7,5 @@ public class Client extends User {
     public Ticket getTicket(Ticket ticket) {
         System.out.println("Client received ticket: " + ticket);
         return ticket;
-
+    }
 }
