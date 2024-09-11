@@ -1,8 +1,8 @@
 import java.time.Instant;
 import java.util.Objects;
 
-public class Ticket {
-    @NullableWarning private String id;
+    public class Ticket extends Identifiable implements Printable {
+    @NullableWarning
     private String concertHall;
     private int eventCode;
     private long time;
@@ -41,9 +41,6 @@ public class Ticket {
                 isPromo +" ,Stadium Sector=" + stadiumSector + ", Backpack Weight=" + backpackWeight +
                 ", Price=" + price;
     }
-    public String getId() {
-        return id;
-    }
 
     public String getConcertHall() {
         return concertHall;
@@ -77,14 +74,10 @@ public class Ticket {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof Ticket ticket)) return false;
-        return id == ticket.id;
+        return Objects.equals(id, ticket.id);
     }
     public int hashCode() {
         return Objects.hash(id);
-    }
-    public interface Sharable {
-        void shareByPhone();
-        void shareByEmail();
     }
     public void shareByPhone() {
         System.out.println("Ticket shared by phone!");
@@ -93,5 +86,9 @@ public class Ticket {
     public void shareByEmail() {
         System.out.println("Ticket shared by email!");
     }
-}
+
+    public void print() {
+        System.out.println(this.toString());
+        }
+    }
 
