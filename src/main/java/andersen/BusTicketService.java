@@ -11,6 +11,8 @@ import java.util.*;
 
 public class BusTicketService {
 
+    private List<BusTicket> tickets;
+
     public static void main(String[] args) {
 
         BusTicketService ticketService = new BusTicketService();
@@ -92,8 +94,6 @@ public class BusTicketService {
             System.err.println("Error reading file: " + e.getMessage());
         }
     }
-
-    private List<BusTicket> tickets;
     private boolean isTicketTypeRequiresStartDate(BusTicket ticket) {
         String type = ticket.getTicketType();
         return "DAY".equalsIgnoreCase(type) || "WEEK".equalsIgnoreCase(type) || "YEAR".equalsIgnoreCase(type);
