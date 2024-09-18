@@ -1,11 +1,5 @@
 package andersen;
 
-import com.google.gson.Gson;
-import com.google.gson.JsonSyntaxException;
-
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
 import java.time.LocalDate;
 import java.util.*;
 
@@ -74,26 +68,7 @@ public class BusTicketService {
         System.out.println("Valid = " + validTickets);
         System.out.println("Most popular violation = " + getMostPopularViolation(violationCount));
     }
-    public void parseAndValidateTickets(String jsonInput) {
-        Gson gson = new Gson();
-        try {
-            BusTicket ticket = gson.fromJson(jsonInput, BusTicket.class);
-            addTicket(ticket);
-        } catch (JsonSyntaxException e) {
-            System.out.println("Invalid JSON format: " + jsonInput);
-        }
-    }
 
-    public void readTicketsFromFile(String filename) {
-        try (BufferedReader reader = new BufferedReader(new FileReader(filename))) {
-            String line;
-            while ((line = reader.readLine()) != null) {
-                parseAndValidateTickets(line);
-            }
-        } catch (IOException e) {
-            System.err.println("Error reading file: " + e.getMessage());
-        }
-    }
     private boolean isTicketTypeRequiresStartDate(BusTicket ticket) {
         String type = ticket.getTicketType();
         return "DAY".equalsIgnoreCase(type) || "WEEK".equalsIgnoreCase(type) || "YEAR".equalsIgnoreCase(type);
