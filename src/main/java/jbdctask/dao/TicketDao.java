@@ -21,7 +21,7 @@ public class TicketDao {
     }
 
     public void saveTicket(int userId, String ticketType) {
-        String query = "INSERT INTO Ticket (user_id, ticket_type) VALUES (?, ?::ticket_type);"; // Cast to ticket_type
+        String query = "INSERT INTO Ticket (user_id, ticket_type) VALUES (?, ?::ticket_type);";
 
         try (Connection connection = getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(query)) {
@@ -80,12 +80,12 @@ public class TicketDao {
     }
 
     public void updateTicketType(int ticketId, String newTicketType) {
-        String query = "UPDATE Ticket SET ticket_type = ?::ticket_type WHERE id = ?;"; // Cast to ticket_type
+        String query = "UPDATE Ticket SET ticket_type = ?::ticket_type WHERE id = ?;";
 
         try (Connection connection = getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(query)) {
-            preparedStatement.setString(1, newTicketType); // Set the new ticket type
-            preparedStatement.setInt(2, ticketId); // Set the ticket ID
+            preparedStatement.setString(1, newTicketType);
+            preparedStatement.setInt(2, ticketId);
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
