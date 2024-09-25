@@ -1,6 +1,6 @@
-package jbdctask.dao;
+package jdbctask.dao;
 
-import jbdctask.oldprojectclasses.Ticket;
+import jdbctask.oldprojectclasses.Ticket;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;

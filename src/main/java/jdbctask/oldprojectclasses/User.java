@@ -1,4 +1,4 @@
-package jbdctask.oldprojectclasses;
+package jdbctask.oldprojectclasses;
 
 import java.time.LocalDateTime;
 

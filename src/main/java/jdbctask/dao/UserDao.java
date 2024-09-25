@@ -1,6 +1,6 @@
-package jbdctask.dao;
+package jdbctask.dao;
 
-import jbdctask.oldprojectclasses.User;
+import jdbctask.oldprojectclasses.User;
 import java.sql.*;
 
 public class UserDao {

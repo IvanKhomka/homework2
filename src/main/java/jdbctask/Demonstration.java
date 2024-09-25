@@ -1,9 +1,9 @@
-package jbdctask;
+package jdbctask;
 
-import jbdctask.dao.TicketDao;
-import jbdctask.dao.UserDao;
-import jbdctask.oldprojectclasses.Ticket;
-import jbdctask.oldprojectclasses.User;
+import jdbctask.dao.TicketDao;
+import jdbctask.dao.UserDao;
+import jdbctask.oldprojectclasses.Ticket;
+import jdbctask.oldprojectclasses.User;
 
 import java.util.List;
 
