@@ -8,19 +8,19 @@ import jdbctask.oldprojectclasses.User;
 import java.util.List;
 
 public class Demonstration {
-    private static final String url = "jdbc:postgresql://localhost:5432/my_ticket_service_db";
-    private static final String username = "postgres";
-    private static final String password = "82463755";
 
-    public static void main(String[] args) {
-        UserDao userDAO = new UserDao(url, username, password);
-        TicketDao ticketDAO = new TicketDao(url, username, password);
+       public static void main(String[] args) {
+
+       DBConnection connectionManager = new DBConnection(DBConfig.DB_URL,DBConfig.USERNAME,DBConfig.PASSWORD);
+
+       UserDao userDAO = new UserDao(connectionManager);
+       TicketDao ticketDAO = new TicketDao(connectionManager);
 
         userDAO.saveUser("Ivan");
         userDAO.saveUser("Alexey");
 
-        User userIvan = userDAO.getUserById(68);
-        User userAlexey = userDAO.getUserById(69);
+        User userIvan = userDAO.getUserById(70);
+        User userAlexey = userDAO.getUserById(71);
 
         System.out.println("Fetched User: " + userIvan.getName());
         System.out.println("Fetched User: " + userAlexey.getName());

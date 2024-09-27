@@ -1,30 +1,24 @@
 package jdbctask.dao;
 
+import jdbctask.DBConfig;
+import jdbctask.DBConnection;
 import jdbctask.oldprojectclasses.Ticket;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class TicketDao {
-    private final String url;
-    private final String username;
-    private final String password;
 
-    public TicketDao(String dbUrl, String username, String password) {
-        this.url = dbUrl;
-        this.username = username;
-        this.password = password;
-    }
+    private final DBConnection connectionManager;
 
-    private Connection getConnection() throws SQLException {
-        return DriverManager.getConnection(url, username, password);
+    public TicketDao(DBConnection connectionManager) {
+        this.connectionManager = new DBConnection(DBConfig.DB_URL,DBConfig.USERNAME,DBConfig.PASSWORD);
     }
 
     public void saveTicket(int userId, String ticketType) {
         String query = "INSERT INTO Ticket (user_id, ticket_type) VALUES (?, ?::ticket_type);";
 
-        try (Connection connection = getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+        try (PreparedStatement preparedStatement = connectionManager.createPreparedStatement(query)) {
             preparedStatement.setInt(1, userId);
             preparedStatement.setString(2, ticketType);
             preparedStatement.executeUpdate();
@@ -37,8 +31,7 @@ public class TicketDao {
         Ticket ticket = null;
         String query = "SELECT * FROM Ticket WHERE id = ?;";
 
-        try (Connection connection = getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+        try (PreparedStatement preparedStatement = connectionManager.createPreparedStatement(query)) {
             preparedStatement.setInt(1, ticketId);
             ResultSet resultSet = preparedStatement.executeQuery();
 
@@ -60,8 +53,7 @@ public class TicketDao {
         List<Ticket> tickets = new ArrayList<>();
         String query = "SELECT * FROM Ticket WHERE user_id = ?;";
 
-        try (Connection connection = getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+        try (PreparedStatement preparedStatement = connectionManager.createPreparedStatement(query)) {
             preparedStatement.setInt(1, userId);
             ResultSet resultSet = preparedStatement.executeQuery();
 
@@ -82,8 +74,7 @@ public class TicketDao {
     public void updateTicketType(int ticketId, String newTicketType) {
         String query = "UPDATE Ticket SET ticket_type = ?::ticket_type WHERE id = ?;";
 
-        try (Connection connection = getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+        try (PreparedStatement preparedStatement = connectionManager.createPreparedStatement(query)) {
             preparedStatement.setString(1, newTicketType);
             preparedStatement.setInt(2, ticketId);
             preparedStatement.executeUpdate();
@@ -95,8 +86,7 @@ public class TicketDao {
     public void deleteTicketById(int ticketId) {
         String query = "DELETE FROM Ticket WHERE id = ?;";
 
-        try (Connection connection = getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+        try (PreparedStatement preparedStatement = connectionManager.createPreparedStatement(query)) {
             preparedStatement.setInt(1, ticketId);
             preparedStatement.executeUpdate();
         } catch (SQLException e) {

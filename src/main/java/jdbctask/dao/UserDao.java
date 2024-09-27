@@ -1,28 +1,22 @@
 package jdbctask.dao;
 
+import jdbctask.DBConfig;
+import jdbctask.DBConnection;
 import jdbctask.oldprojectclasses.User;
 import java.sql.*;
 
 public class UserDao {
-    private final String url;
-    private final String username;
-    private final String password;
 
-    public UserDao(String dbUrl, String username, String password) {
-        this.url = dbUrl;
-        this.username = username;
-        this.password = password;
-    }
+    private final DBConnection connectionManager;
 
-    private Connection getConnection() throws SQLException {
-        return DriverManager.getConnection(url, username, password);
+    public UserDao(DBConnection connectionManager) {
+        this.connectionManager = new DBConnection(DBConfig.DB_URL,DBConfig.USERNAME,DBConfig.PASSWORD);
     }
 
     public void saveUser(String name) {
         String query = "INSERT INTO \"User\" (name) VALUES (?);";
 
-        try (Connection connection = getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+        try (PreparedStatement preparedStatement = connectionManager.createPreparedStatement(query)) {
             preparedStatement.setString(1, name);
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
@@ -34,8 +28,7 @@ public class UserDao {
         User user = null;
         String query = "SELECT * FROM \"User\" WHERE id = ?;";
 
-        try (Connection connection = getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+        try (PreparedStatement preparedStatement = connectionManager.createPreparedStatement(query)){
             preparedStatement.setInt(1, userId);
             ResultSet resultSet = preparedStatement.executeQuery();
 
@@ -53,8 +46,7 @@ public class UserDao {
     public void deleteUserById(int userId) {
         String query = "DELETE FROM \"User\" WHERE id = ?;";
 
-        try (Connection connection = getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+        try (PreparedStatement preparedStatement = connectionManager.createPreparedStatement(query)) {
             preparedStatement.setInt(1, userId);
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
