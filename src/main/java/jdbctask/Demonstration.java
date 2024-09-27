@@ -19,8 +19,8 @@ public class Demonstration {
         userDAO.saveUser("Ivan");
         userDAO.saveUser("Alexey");
 
-        User userIvan = userDAO.getUserById(72);
-        User userAlexey = userDAO.getUserById(73);
+        User userIvan = userDAO.getUserById(74);
+        User userAlexey = userDAO.getUserById(75);
 
         System.out.println("Fetched User: " + userIvan.getName());
         System.out.println("Fetched User: " + userAlexey.getName());

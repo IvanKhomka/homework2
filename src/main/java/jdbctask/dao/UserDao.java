@@ -5,6 +5,9 @@ import jdbctask.oldprojectclasses.User;
 import java.sql.*;
 
 public class UserDao {
+    private static final String SAVE_USER = "INSERT INTO \"User\" (name) VALUES (?);";
+    private static final String GET_USER_BY_ID = "SELECT * FROM \"User\" WHERE id = ?;";
+    private static final String DELETE_USER_BY_ID = "DELETE FROM \"User\" WHERE id = ?;";
 
     private final DBConnection connectionManager;
 
@@ -13,9 +16,8 @@ public class UserDao {
     }
 
     public void saveUser(String name) {
-        String query = "INSERT INTO \"User\" (name) VALUES (?);";
 
-        try (PreparedStatement preparedStatement = connectionManager.createPreparedStatement(query)) {
+        try (PreparedStatement preparedStatement = connectionManager.createPreparedStatement(SAVE_USER)) {
             preparedStatement.setString(1, name);
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
@@ -25,9 +27,8 @@ public class UserDao {
 
     public User getUserById(int userId) {
         User user = null;
-        String query = "SELECT * FROM \"User\" WHERE id = ?;";
 
-        try (PreparedStatement preparedStatement = connectionManager.createPreparedStatement(query)){
+        try (PreparedStatement preparedStatement = connectionManager.createPreparedStatement(GET_USER_BY_ID)){
             preparedStatement.setInt(1, userId);
             ResultSet resultSet = preparedStatement.executeQuery();
 
@@ -43,9 +44,8 @@ public class UserDao {
     }
 
     public void deleteUserById(int userId) {
-        String query = "DELETE FROM \"User\" WHERE id = ?;";
 
-        try (PreparedStatement preparedStatement = connectionManager.createPreparedStatement(query)) {
+        try (PreparedStatement preparedStatement = connectionManager.createPreparedStatement(DELETE_USER_BY_ID)) {
             preparedStatement.setInt(1, userId);
             preparedStatement.executeUpdate();
         } catch (SQLException e) {

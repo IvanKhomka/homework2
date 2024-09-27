@@ -8,6 +8,12 @@ import java.util.List;
 
 public class TicketDao {
 
+    private static final String SAVE_TICKET = "INSERT INTO Ticket (user_id, ticket_type) VALUES (?, ?::ticket_type);";
+    private static final String GET_TICKET_BY_ID = "SELECT * FROM Ticket WHERE id = ?;";
+    private static final String GET_TICKETS_BY_USER_ID = "SELECT * FROM Ticket WHERE user_id = ?;";
+    private static final String UPDATE_TICKET_TYPE = "UPDATE Ticket SET ticket_type = ?::ticket_type WHERE id = ?;";
+    private static final String DELETE_TICKET_BY_ID = "DELETE FROM Ticket WHERE id = ?;";
+
     private final DBConnection connectionManager;
 
     public TicketDao(DBConnection connectionManager) {
@@ -15,9 +21,8 @@ public class TicketDao {
     }
 
     public void saveTicket(int userId, String ticketType) {
-        String query = "INSERT INTO Ticket (user_id, ticket_type) VALUES (?, ?::ticket_type);";
 
-        try (PreparedStatement preparedStatement = connectionManager.createPreparedStatement(query)) {
+        try (PreparedStatement preparedStatement = connectionManager.createPreparedStatement(SAVE_TICKET)) {
             preparedStatement.setInt(1, userId);
             preparedStatement.setString(2, ticketType);
             preparedStatement.executeUpdate();
@@ -28,9 +33,8 @@ public class TicketDao {
 
     public Ticket getTicketById(int ticketId) {
         Ticket ticket = null;
-        String query = "SELECT * FROM Ticket WHERE id = ?;";
 
-        try (PreparedStatement preparedStatement = connectionManager.createPreparedStatement(query)) {
+        try (PreparedStatement preparedStatement = connectionManager.createPreparedStatement(GET_TICKET_BY_ID)) {
             preparedStatement.setInt(1, ticketId);
             ResultSet resultSet = preparedStatement.executeQuery();
 
@@ -50,9 +54,8 @@ public class TicketDao {
 
     public List<Ticket> getTicketsByUserId(int userId) {
         List<Ticket> tickets = new ArrayList<>();
-        String query = "SELECT * FROM Ticket WHERE user_id = ?;";
 
-        try (PreparedStatement preparedStatement = connectionManager.createPreparedStatement(query)) {
+        try (PreparedStatement preparedStatement = connectionManager.createPreparedStatement(GET_TICKETS_BY_USER_ID)) {
             preparedStatement.setInt(1, userId);
             ResultSet resultSet = preparedStatement.executeQuery();
 
@@ -71,9 +74,8 @@ public class TicketDao {
     }
 
     public void updateTicketType(int ticketId, String newTicketType) {
-        String query = "UPDATE Ticket SET ticket_type = ?::ticket_type WHERE id = ?;";
 
-        try (PreparedStatement preparedStatement = connectionManager.createPreparedStatement(query)) {
+        try (PreparedStatement preparedStatement = connectionManager.createPreparedStatement(UPDATE_TICKET_TYPE)) {
             preparedStatement.setString(1, newTicketType);
             preparedStatement.setInt(2, ticketId);
             preparedStatement.executeUpdate();
@@ -83,9 +85,8 @@ public class TicketDao {
     }
 
     public void deleteTicketById(int ticketId) {
-        String query = "DELETE FROM Ticket WHERE id = ?;";
 
-        try (PreparedStatement preparedStatement = connectionManager.createPreparedStatement(query)) {
+        try (PreparedStatement preparedStatement = connectionManager.createPreparedStatement(DELETE_TICKET_BY_ID)) {
             preparedStatement.setInt(1, ticketId);
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
