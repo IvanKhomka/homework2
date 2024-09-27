@@ -17,11 +17,15 @@ public class Ticket {
 
 
     public int getId() {
-        return id; }
+        return id;
+    }
     public int getUserId() {
-        return userId; }
+        return userId;
+    }
     public String getTicketType() {
-        return ticketType; }
+        return ticketType;
+    }
     public LocalDateTime getCreationDate() {
-        return creationDate; }
+        return creationDate;
+    }
 }

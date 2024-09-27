@@ -15,9 +15,12 @@ public class User {
 
 
     public int getId() {
-        return id; }
+        return id;
+    }
     public String getName() {
-        return name; }
+        return name;
+    }
     public LocalDateTime getCreationDate() {
-        return creationDate; }
+        return creationDate;
+    }
 }
