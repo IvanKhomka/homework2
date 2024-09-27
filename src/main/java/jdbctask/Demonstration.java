@@ -11,7 +11,7 @@ public class Demonstration {
 
        public static void main(String[] args) {
 
-       DBConnection connectionManager = new DBConnection(DBConfig.DB_URL,DBConfig.USERNAME,DBConfig.PASSWORD);
+       DBConnection connectionManager = new DBConnection(DBConnection.DB_URL,DBConnection.USERNAME,DBConnection.PASSWORD);
 
        UserDao userDAO = new UserDao(connectionManager);
        TicketDao ticketDAO = new TicketDao(connectionManager);
@@ -19,8 +19,8 @@ public class Demonstration {
         userDAO.saveUser("Ivan");
         userDAO.saveUser("Alexey");
 
-        User userIvan = userDAO.getUserById(70);
-        User userAlexey = userDAO.getUserById(71);
+        User userIvan = userDAO.getUserById(72);
+        User userAlexey = userDAO.getUserById(73);
 
         System.out.println("Fetched User: " + userIvan.getName());
         System.out.println("Fetched User: " + userAlexey.getName());

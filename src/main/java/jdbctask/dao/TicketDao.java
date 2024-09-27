@@ -1,6 +1,5 @@
 package jdbctask.dao;
 
-import jdbctask.DBConfig;
 import jdbctask.DBConnection;
 import jdbctask.oldprojectclasses.Ticket;
 import java.sql.*;
@@ -12,7 +11,7 @@ public class TicketDao {
     private final DBConnection connectionManager;
 
     public TicketDao(DBConnection connectionManager) {
-        this.connectionManager = new DBConnection(DBConfig.DB_URL,DBConfig.USERNAME,DBConfig.PASSWORD);
+        this.connectionManager = new DBConnection(DBConnection.DB_URL,DBConnection.USERNAME,DBConnection.PASSWORD);
     }
 
     public void saveTicket(int userId, String ticketType) {

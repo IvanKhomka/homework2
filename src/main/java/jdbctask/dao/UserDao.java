@@ -1,6 +1,5 @@
 package jdbctask.dao;
 
-import jdbctask.DBConfig;
 import jdbctask.DBConnection;
 import jdbctask.oldprojectclasses.User;
 import java.sql.*;
@@ -10,7 +9,7 @@ public class UserDao {
     private final DBConnection connectionManager;
 
     public UserDao(DBConnection connectionManager) {
-        this.connectionManager = new DBConnection(DBConfig.DB_URL,DBConfig.USERNAME,DBConfig.PASSWORD);
+        this.connectionManager = new DBConnection(DBConnection.DB_URL,DBConnection.USERNAME,DBConnection.PASSWORD);
     }
 
     public void saveUser(String name) {
